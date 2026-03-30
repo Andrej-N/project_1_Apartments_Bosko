@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Apartments, { apartments, type ApartmentId } from "@/components/Apartments";
+import Apartments, { type ApartmentId } from "@/components/Apartments";
 import Gallery from "@/components/Gallery";
 import Amenities from "@/components/Amenities";
 import CTASection from "@/components/CTASection";
@@ -18,12 +18,6 @@ export default function Home() {
   const handleOpenGallery = useCallback((id: ApartmentId) => {
     setGalleryApartment(id);
     setGalleryOpen(true);
-  }, []);
-
-  const handleBookFromGallery = useCallback((id: ApartmentId) => {
-    setGalleryOpen(false);
-    const apt = apartments.find(a => a.id === id);
-    if (apt) window.open(apt.bookingUrl, "_blank");
   }, []);
 
   return (
@@ -42,7 +36,10 @@ export default function Home() {
         isOpen={galleryOpen}
         onClose={() => setGalleryOpen(false)}
         apartmentId={galleryApartment}
-        onBook={handleBookFromGallery}
+        onBook={(id) => {
+          setGalleryOpen(false);
+          window.open(`https://wa.me/38269986212?text=${encodeURIComponent(`Zdravo, interesuje me Apartman ${id} u Budvi. Da li imate slobodnih termina?`)}`, "_blank");
+        }}
       />
     </>
   );

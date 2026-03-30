@@ -76,12 +76,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4"
         >
           <a
-            href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             className="px-10 py-4 bg-gold text-charcoal font-semibold uppercase tracking-wider text-sm hover:bg-gold-light transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
           >
-            Proverite dostupnost
+            Kontaktirajte nas
           </a>
           <a
             href="#apartments"

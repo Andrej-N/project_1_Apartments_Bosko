@@ -27,8 +27,8 @@ export default function CTASection() {
             Spremni za <span className="text-gold italic">nezaboravan</span> boravak?
           </h2>
           <p className="text-offwhite-dim max-w-xl mx-auto mb-12 leading-relaxed">
-            Pogledajte dostupnost na Booking.com ili nas kontaktirajte
-            direktno putem WhatsApp-a i email-a za sva pitanja.
+            Kontaktirajte nas direktno putem WhatsApp-a ili email-a
+            za sva pitanja o dostupnosti i cenama.
           </p>
         </RevealOnScroll>
 

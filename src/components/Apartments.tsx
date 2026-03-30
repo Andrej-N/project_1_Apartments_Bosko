@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Building2, Eye, Users, ExternalLink } from "lucide-react";
+import { Building2, Eye, Users, MessageCircle, Mail } from "lucide-react";
 import RevealOnScroll from "./RevealOnScroll";
 
 const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -19,11 +19,7 @@ export interface ApartmentInfo {
   guests: number;
 }
 
-// Booking.com property: app_hotel_id=9876059
-// Main link sends to property page; replace with individual room links if available
-const BOOKING_BASE = "https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html";
-
-export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
+export const apartments: ApartmentInfo[] = [
   {
     id: "302",
     name: "Apartman 302",
@@ -33,7 +29,6 @@ export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
     image: `${bp}/images/apartments/302/living-room.jpg`,
     view: "Grad i more",
     guests: 4,
-    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1106",
@@ -44,7 +39,6 @@ export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
     image: `${bp}/images/apartments/1106/room-with-view.jpg`,
     view: "Panorama",
     guests: 4,
-    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1102",
@@ -55,7 +49,6 @@ export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
     image: `${bp}/images/apartments/1102-1104/balcony-sea-view.jpg`,
     view: "More i Stari grad",
     guests: 4,
-    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1103",
@@ -66,7 +59,6 @@ export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
     image: `${bp}/images/apartments/1102-1104/living-room.jpg`,
     view: "More i Stari grad",
     guests: 4,
-    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1104",
@@ -77,9 +69,18 @@ export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
     image: `${bp}/images/apartments/1102-1104/room-balcony.jpg`,
     view: "More i Stari grad",
     guests: 4,
-    bookingUrl: BOOKING_BASE,
   },
 ];
+
+function whatsAppUrl(aptName: string) {
+  const text = encodeURIComponent(`Zdravo, interesuje me ${aptName} u Budvi. Da li imate slobodnih termina?`);
+  return `https://wa.me/38269986212?text=${text}`;
+}
+
+function emailUrl(aptName: string) {
+  const subject = encodeURIComponent(`Upit za ${aptName} u Budvi`);
+  return `mailto:apartman-wow@hotmail.com?subject=${subject}`;
+}
 
 export default function Apartments({
   onSelectApartment,
@@ -152,16 +153,23 @@ export default function Apartments({
                   </div>
                   <div className="flex gap-3">
                     <a
-                      href={apt.bookingUrl}
+                      href={whatsAppUrl(apt.name)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#003580] text-white text-sm uppercase tracking-wider hover:bg-[#00264d] transition-all duration-300"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#25D366] text-white text-sm uppercase tracking-wider hover:bg-[#20bd5a] transition-all duration-300"
                     >
-                      Dostupnost
-                      <ExternalLink size={14} />
+                      <MessageCircle size={16} />
+                      WhatsApp
+                    </a>
+                    <a
+                      href={emailUrl(apt.name)}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold text-charcoal text-sm uppercase tracking-wider hover:bg-gold-light transition-all duration-300"
+                    >
+                      <Mail size={16} />
+                      Email
                     </a>
                     <button
-                      onClick={() => onSelectApartment(apt.id)}
+                      onClick={() => onOpenGallery(apt.id)}
                       className="flex-1 py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
                     >
                       Galerija
@@ -219,20 +227,21 @@ export default function Apartments({
                   </div>
                   <div className="flex gap-3">
                     <a
-                      href={apt.bookingUrl}
+                      href={whatsAppUrl(apt.name)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#003580] text-white text-sm uppercase tracking-wider hover:bg-[#00264d] transition-all duration-300"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#25D366] text-white text-xs uppercase tracking-wider hover:bg-[#20bd5a] transition-all duration-300"
                     >
-                      Dostupnost
-                      <ExternalLink size={14} />
+                      <MessageCircle size={14} />
+                      WhatsApp
                     </a>
-                    <button
-                      onClick={() => onSelectApartment(apt.id)}
-                      className="flex-1 py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
+                    <a
+                      href={emailUrl(apt.name)}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold text-charcoal text-xs uppercase tracking-wider hover:bg-gold-light transition-all duration-300"
                     >
-                      Galerija
-                    </button>
+                      <Mail size={14} />
+                      Email
+                    </a>
                   </div>
                 </div>
               </div>

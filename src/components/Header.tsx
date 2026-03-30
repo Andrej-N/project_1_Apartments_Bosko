@@ -66,9 +66,7 @@ export default function Header() {
           ))}
           <li>
             <a
-              href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="ml-2 px-5 py-2 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300"
             >
               Rezervišite
@@ -109,9 +107,7 @@ export default function Header() {
               ))}
               <li>
                 <a
-                  href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact"
                   className="px-8 py-3 border border-gold text-gold uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300"
                 >
                   Rezervišite
