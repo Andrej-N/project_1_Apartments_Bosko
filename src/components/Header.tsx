@@ -9,7 +9,6 @@ const navLinks = [
   { href: "#apartments", label: "Apartmani" },
   { href: "#gallery", label: "Galerija" },
   { href: "#amenities", label: "Sadržaj" },
-  { href: "#calendar", label: "Dostupnost" },
   { href: "#contact", label: "Kontakt" },
 ];
 
@@ -67,8 +66,9 @@ export default function Header() {
           ))}
           <li>
             <a
-              href="#calendar"
-              onClick={(e) => handleNavClick(e, "#calendar")}
+              href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-2 px-5 py-2 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300"
             >
               Rezervišite
@@ -109,8 +109,9 @@ export default function Header() {
               ))}
               <li>
                 <a
-                  href="#calendar"
-                  onClick={(e) => handleNavClick(e, "#calendar")}
+                  href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-3 border border-gold text-gold uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300"
                 >
                   Rezervišite

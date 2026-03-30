@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
+export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -75,12 +75,14 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          <button
-            onClick={onOpenModal}
+          <a
+            href="https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-10 py-4 bg-gold text-charcoal font-semibold uppercase tracking-wider text-sm hover:bg-gold-light transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
           >
             Proverite dostupnost
-          </button>
+          </a>
           <a
             href="#apartments"
             className="px-10 py-4 border border-offwhite-dim text-offwhite-dim uppercase tracking-wider text-sm hover:border-gold hover:text-gold transition-all duration-300"

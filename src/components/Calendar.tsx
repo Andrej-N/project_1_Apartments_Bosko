@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronDown, ExternalLink } from "lucide-react";
 import RevealOnScroll from "./RevealOnScroll";
 import { apartments, type ApartmentId } from "./Apartments";
 
@@ -11,7 +11,17 @@ const MONTHS = [
   "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar",
 ];
 
+// Booking.com links per apartment (replace with individual property links)
+const bookingLinks: Record<ApartmentId, string> = {
+  "302":  "https://www.booking.com/Share-9D3tSgQ",
+  "1102": "https://www.booking.com/Share-9D3tSgQ",
+  "1103": "https://www.booking.com/Share-9D3tSgQ",
+  "1104": "https://www.booking.com/Share-9D3tSgQ",
+  "1106": "https://www.booking.com/Share-9D3tSgQ",
+};
+
 // Mock booked dates per apartment
+// TODO: Replace with real iCal feed from Booking.com Extranet
 function getBookedDates(year: number, month: number, apartmentId: ApartmentId): Set<number> {
   const booked = new Set<number>();
   const isCurrentMonth = month === new Date().getMonth() && year === new Date().getFullYear();
@@ -30,11 +40,9 @@ function getBookedDates(year: number, month: number, apartmentId: ApartmentId): 
 }
 
 export default function Calendar({
-  onOpenModal,
   selectedApartment,
   onApartmentChange,
 }: {
-  onOpenModal: (apartmentId?: ApartmentId) => void;
   selectedApartment: ApartmentId;
   onApartmentChange: (id: ApartmentId) => void;
 }) {
@@ -82,6 +90,7 @@ export default function Calendar({
   };
 
   const currentApt = apartments.find((a) => a.id === selectedApartment)!;
+  const bookingUrl = bookingLinks[selectedApartment];
 
   return (
     <section id="calendar" className="py-24 md:py-32 px-6 bg-charcoal-light">
@@ -95,7 +104,7 @@ export default function Calendar({
               Kalendar <span className="text-gold italic">rezervacija</span>
             </h2>
             <p className="text-offwhite-dim">
-              Izaberite apartman i slobodan termin
+              Pogledajte slobodne termine i rezervišite preko Booking.com
             </p>
           </div>
         </RevealOnScroll>
@@ -186,24 +195,22 @@ export default function Calendar({
                 const todayClass = isToday(day);
 
                 return (
-                  <button
+                  <div
                     key={day}
-                    disabled={booked || past}
-                    onClick={() => !booked && !past && onOpenModal(selectedApartment)}
                     className={`
                       relative py-3 text-sm text-center transition-all duration-300 rounded-sm
                       ${todayClass ? "ring-1 ring-gold" : ""}
                       ${
                         booked
-                          ? "text-offwhite-dim/40 line-through cursor-not-allowed bg-charcoal-lighter/30"
+                          ? "text-offwhite-dim/40 line-through bg-charcoal-lighter/30"
                           : past
-                          ? "text-offwhite-dim/30 cursor-not-allowed"
-                          : "text-offwhite hover:bg-gold/20 hover:text-gold cursor-pointer"
+                          ? "text-offwhite-dim/30"
+                          : "text-offwhite"
                       }
                     `}
                   >
                     {day}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -211,7 +218,7 @@ export default function Calendar({
             {/* Legend */}
             <div className="flex items-center justify-center gap-8 mt-8 text-xs text-offwhite-dim">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-gold/20 border border-gold/40 rounded-sm" />
+                <span className="w-3 h-3 bg-charcoal border border-charcoal-lighter rounded-sm" />
                 Slobodno
               </div>
               <div className="flex items-center gap-2">
@@ -228,12 +235,18 @@ export default function Calendar({
 
         <RevealOnScroll delay={0.2}>
           <div className="text-center mt-10">
-            <button
-              onClick={() => onOpenModal(selectedApartment)}
-              className="px-10 py-4 bg-gold text-charcoal font-semibold uppercase tracking-wider text-sm hover:bg-gold-light transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 cursor-pointer"
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-4 bg-[#003580] text-white font-semibold uppercase tracking-wider text-sm hover:bg-[#00264d] transition-all duration-300 hover:shadow-lg hover:shadow-[#003580]/20"
             >
-              Pošaljite upit za rezervaciju
-            </button>
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                <path d="M2.27 7.277a3.2 3.2 0 1 1 6.4 0 3.2 3.2 0 0 1-6.4 0Zm7.097 9.882a5.527 5.527 0 0 1-3.897 1.614 5.527 5.527 0 0 1-3.897-1.614A5.49 5.49 0 0 1 0 13.273V7.277a7.47 7.47 0 0 1 5.47-7.2v3.048a3.2 3.2 0 1 0 0 6.303v3.845a1.327 1.327 0 0 1-2.654 0v-.827H0v.827a4.127 4.127 0 0 0 5.47 3.897 4.127 4.127 0 0 0 3.897-3.897v-.827H6.72v.827c0 .695-.55 1.26-1.25 1.26-.7 0-1.25-.565-1.25-1.26v-.827H1.573v.827a3.9 3.9 0 0 0 3.897 3.897 3.9 3.9 0 0 0 3.897-3.897ZM20.8 7.277a3.2 3.2 0 1 0-6.4 0 3.2 3.2 0 0 0 6.4 0Z" />
+              </svg>
+              Rezervišite na Booking.com
+              <ExternalLink size={16} className="opacity-60" />
+            </a>
           </div>
         </RevealOnScroll>
       </div>

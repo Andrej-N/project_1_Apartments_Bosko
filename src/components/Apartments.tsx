@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Building2, Eye, Users } from "lucide-react";
+import { Building2, Eye, Users, ExternalLink } from "lucide-react";
 import RevealOnScroll from "./RevealOnScroll";
 
 const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -19,7 +19,11 @@ export interface ApartmentInfo {
   guests: number;
 }
 
-export const apartments: ApartmentInfo[] = [
+// Booking.com property: app_hotel_id=9876059
+// Main link sends to property page; replace with individual room links if available
+const BOOKING_BASE = "https://www.booking.com/hotel/me/apartments-sea-view-in-wow-budva2.sr.html";
+
+export const apartments: (ApartmentInfo & { bookingUrl: string })[] = [
   {
     id: "302",
     name: "Apartman 302",
@@ -29,6 +33,7 @@ export const apartments: ApartmentInfo[] = [
     image: `${bp}/images/apartments/302/living-room.jpg`,
     view: "Grad i more",
     guests: 4,
+    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1106",
@@ -39,6 +44,7 @@ export const apartments: ApartmentInfo[] = [
     image: `${bp}/images/apartments/1106/room-with-view.jpg`,
     view: "Panorama",
     guests: 4,
+    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1102",
@@ -49,6 +55,7 @@ export const apartments: ApartmentInfo[] = [
     image: `${bp}/images/apartments/1102-1104/balcony-sea-view.jpg`,
     view: "More i Stari grad",
     guests: 4,
+    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1103",
@@ -59,6 +66,7 @@ export const apartments: ApartmentInfo[] = [
     image: `${bp}/images/apartments/1102-1104/living-room.jpg`,
     view: "More i Stari grad",
     guests: 4,
+    bookingUrl: BOOKING_BASE,
   },
   {
     id: "1104",
@@ -69,6 +77,7 @@ export const apartments: ApartmentInfo[] = [
     image: `${bp}/images/apartments/1102-1104/room-balcony.jpg`,
     view: "More i Stari grad",
     guests: 4,
+    bookingUrl: BOOKING_BASE,
   },
 ];
 
@@ -141,12 +150,23 @@ export default function Apartments({
                       {apt.floor}
                     </span>
                   </div>
-                  <button
-                    onClick={() => onSelectApartment(apt.id)}
-                    className="w-full py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
-                  >
-                    Rezervišite ovaj apartman
-                  </button>
+                  <div className="flex gap-3">
+                    <a
+                      href={apt.bookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#003580] text-white text-sm uppercase tracking-wider hover:bg-[#00264d] transition-all duration-300"
+                    >
+                      Dostupnost
+                      <ExternalLink size={14} />
+                    </a>
+                    <button
+                      onClick={() => onSelectApartment(apt.id)}
+                      className="flex-1 py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
+                    >
+                      Galerija
+                    </button>
+                  </div>
                 </div>
               </div>
             </RevealOnScroll>
@@ -197,12 +217,23 @@ export default function Apartments({
                       {apt.guests}
                     </span>
                   </div>
-                  <button
-                    onClick={() => onSelectApartment(apt.id)}
-                    className="w-full py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
-                  >
-                    Rezervišite
-                  </button>
+                  <div className="flex gap-3">
+                    <a
+                      href={apt.bookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#003580] text-white text-sm uppercase tracking-wider hover:bg-[#00264d] transition-all duration-300"
+                    >
+                      Dostupnost
+                      <ExternalLink size={14} />
+                    </a>
+                    <button
+                      onClick={() => onSelectApartment(apt.id)}
+                      className="flex-1 py-3 border border-gold text-gold text-sm uppercase tracking-wider hover:bg-gold hover:text-charcoal transition-all duration-300 cursor-pointer"
+                    >
+                      Galerija
+                    </button>
+                  </div>
                 </div>
               </div>
             </RevealOnScroll>

@@ -47,8 +47,16 @@ export default function Footer() {
             </p>
             <ul className="space-y-3 text-offwhite-dim text-sm">
               <li>Budva, Crna Gora</li>
-              <li>info@luxapartmanibudva.me</li>
-              <li>+382 XX XXX XXX</li>
+              <li>
+                <a href="mailto:apartman-wow@hotmail.com" className="hover:text-gold transition-colors">
+                  apartman-wow@hotmail.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:+38269986212" className="hover:text-gold transition-colors">
+                  +382 69 986 212
+                </a>
+              </li>
             </ul>
           </div>
         </div>
