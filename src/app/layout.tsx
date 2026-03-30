@@ -14,7 +14,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://luxapartmanibudva.me";
+const SITE_URL = "https://apartmaniluxbudva.com";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export const metadata: Metadata = {
